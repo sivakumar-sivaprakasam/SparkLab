@@ -44,6 +44,50 @@ Add the following line at the end of the file:
 JAVA_HOME="/usr/lib/jvm/java-11-open-jdk-amd64"
 ```
 
+### Download & Install Maven
+
+To install Maven, first update the package index
+
+```
+sudo apt update
+```
+
+Next, install Maven package with
+
+```
+sudo apt install maven
+```
+
+Verify the maven installation
+
+```
+mvn -version
+```
+
+The output will be something similar like this
+
+```
+Apache Maven 3.6.3
+Maven home: /usr/share/maven
+Java version: 11.0.7, vendor: Ubuntu, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "5.4.0-26-generic", arch: "amd64", family: "unix"
+```
+
+### Configure JAVA_HOME
+
+To create JAVA_HOME environment variable, open `/etc/environment` file:
+
+```
+sudo nano /etc/environment
+```
+
+Add the following line at the end of the file:
+
+```
+M2_HOME="/usr/share/maven"
+```
+
 ### Download & Install Spark 3.2.0
 
 Create a directory in `/home/ubuntu/` called `downloads` to keep your downloads
@@ -68,6 +112,20 @@ Extract the downloaded archive using `tar` command:
 
 ```
 tar -xvzf /home/ubuntu/downloads/spark.tgz --strip 1
+```
+
+### Download & Install Google Chrome Browser
+
+Launch terminal and run following command
+
+```
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+```
+
+To install Chrome browser, run following command
+
+```
+sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
 ## Spark Lab exercises using Spark-Shell (Scala)
