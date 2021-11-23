@@ -397,7 +397,7 @@ Clone this project for the below 2 exercises
 
 In this example, we'll be loading ~2GB unstructured file which contains random alphanumeric data. We'll replace the alphabets with empty string and then count the occurence of each numbers.
 
-Data file kept at `/home/ubuntu/data/sample.data`
+Data file to be used is `/home/ubuntu/data/sample.data` and it is already kept in there
 
 Finally, filtering out selected numbers and also save the output of RDD to a file
 
