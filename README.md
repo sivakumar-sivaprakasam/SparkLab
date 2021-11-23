@@ -399,7 +399,7 @@ In this example, we'll be loading ~2GB unstructured file which contains random a
 
 Data file to be used is `/home/ubuntu/data/sample.data` and it is already kept in there
 
-Finally, filtering out selected numbers and also save the output of RDD to a file
+Finally, filtering out selected numbers and also save the output of RDD to folder `/home/ubuntu/data/sample.data/out`
 
 ### Exercise 10 - Spark DataSet
 
