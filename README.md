@@ -270,7 +270,7 @@ scala>
 
 In this exercise, we're going to load 2 data files and then performing wide transformation & actions on it
 
-Data files are kept at /home/ubuntu/data/ folder
+Data files are kept at `/home/ubuntu/data/` folder
 
 orders.txt - it is a comma separated file with this schema (Order Id, Order Date, Customer Id, Order Status)
 order_items.txt - also a comma separated file with this schema (Order Item Id, Order Id, Product Id, Quantity, Total Price, Unit Price)
