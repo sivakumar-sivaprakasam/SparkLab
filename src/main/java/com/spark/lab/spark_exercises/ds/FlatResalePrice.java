@@ -1,7 +1,6 @@
 package com.spark.lab.spark_exercises.ds;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class FlatResalePrice implements Serializable {
 	/**
@@ -9,23 +8,22 @@ public class FlatResalePrice implements Serializable {
 	 */
 	private static final long serialVersionUID = 8283202466058510174L;
 
-	Date month;
+	String month;
 	String town;
 	String flat_type;
 	String block;
 	String street_name;
 	String storey_range;
-	int floor_area_sqm;
+	String floor_area_sqm;
 	String flat_model;
-	Date lease_commence_date;
-	String remaining_lease;
-	int resale_price;
+	String lease_commence_date;
+	String resale_price;
 
-	public Date getMonth() {
+	public String getMonth() {
 		return month;
 	}
 
-	public void setMonth(Date month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 
@@ -69,11 +67,11 @@ public class FlatResalePrice implements Serializable {
 		this.storey_range = storey_range;
 	}
 
-	public int getFloor_area_sqm() {
+	public String getFloor_area_sqm() {
 		return floor_area_sqm;
 	}
 
-	public void setFloor_area_sqm(int floor_area_sqm) {
+	public void setFloor_area_sqm(String floor_area_sqm) {
 		this.floor_area_sqm = floor_area_sqm;
 	}
 
@@ -85,27 +83,19 @@ public class FlatResalePrice implements Serializable {
 		this.flat_model = flat_model;
 	}
 
-	public Date getLease_commence_date() {
+	public String getLease_commence_date() {
 		return lease_commence_date;
 	}
 
-	public void setLease_commence_date(Date lease_commence_date) {
+	public void setLease_commence_date(String lease_commence_date) {
 		this.lease_commence_date = lease_commence_date;
 	}
 
-	public String getRemaining_lease() {
-		return remaining_lease;
-	}
-
-	public void setRemaining_lease(String remaining_lease) {
-		this.remaining_lease = remaining_lease;
-	}
-
-	public int getResale_price() {
+	public String getResale_price() {
 		return resale_price;
 	}
 
-	public void setResale_price(int resale_price) {
+	public void setResale_price(String resale_price) {
 		this.resale_price = resale_price;
 	}
 

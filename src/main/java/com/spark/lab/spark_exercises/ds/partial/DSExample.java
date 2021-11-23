@@ -1,27 +1,8 @@
-
-Meet
-New meeting
-Join a meeting
-Hangouts
-
-1 of 27
-Java
-Inbox
-
-Lakshmi Sivakumar
-Attachments
-9:20 PM (0 minutes ago)
-to me
-
-
-3 Attachments
-package com.spark.lab.spark_exercises.ds.solution;
+package com.spark.lab.spark_exercises.ds.partial;
 
 import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder;
-
-import com.spark.lab.spark_exercises.ds.FlatResalePrice;
 
 public class DSExample {
 	public static void main(String[] args) {
@@ -36,25 +17,22 @@ public class DSExample {
 		SparkSession spark = SparkSession.builder().appName("HDB Analyser").master("local[*]").getOrCreate();
 
 		// Reading the input files using CSV API
-		Dataset<FlatResalePrice> ds = spark.read()
+		// Use encoders to convert it to Java Bean
+		Dataset<Row> ds = spark.read()
 				.option("delimiter", ",")
 				.option("header", "true")
 				.option("inferSchema", "false")
-				.csv(input_file)
-				.as(ExpressionEncoder.javaBean(FlatResalePrice.class));
+				.csv(input_file);
 
 		// Register the Dataset with temp view
 		ds.createOrReplaceTempView("hdb_data");
 		
 		// Querying on the view
 		// Select list of Town, Flat Type
-		spark.sql("SELECT town, flat_type, COUNT(*) total_flats FROM hdb_data GROUP BY town, flat_type ORDER BY town, flat_type").show();
 		
 		// Select list of Town, Flat Types built on or after year 2000
-		spark.sql("SELECT town, flat_type, COUNT(*) total_flats FROM hdb_data WHERE year(month) >= 2000 GROUP BY town, flat_type ORDER BY town, flat_type").show();
 		
 		// Select top 10 flats in terms of its resale price
-		spark.sql("SELECT * FROM hdb_data ORDER BY INT(resale_price) desc LIMIT 10").show();
 
 		spark.close();
 		spark.stop();
