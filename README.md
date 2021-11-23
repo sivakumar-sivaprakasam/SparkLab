@@ -339,13 +339,15 @@ Clone this project for the below 2 exercises
 
 In this example, we'll be loading ~2GB unstructured file which contains random alphanumeric data. We'll replace the alphabets with empty string and then count the occurence of each numbers.
 
-Data file kept at /home/ubuntu/data/sample.data
+Data file kept at `/home/ubuntu/data/sample.data`
 
 Finally, filtering out selected numbers and also save the output of RDD to a file
 
 ### Exercise 10 - Spark DataSet
 
-In this example, we'll be analysis Singapore HDB's Resale Flat Prices data set (https://data.gov.sg/dataset/resale-flat-prices). Dataset is already downloaded and kept at /home/ubuntu/data/hdb.csv
+In this example, we'll be analysis Singapore HDB's Resale Flat Prices data set (https://data.gov.sg/dataset/resale-flat-prices). 
+
+Dataset is already downloaded and kept at `/home/ubuntu/data/hdb/`
 
 We're going to perform following analysis
 
