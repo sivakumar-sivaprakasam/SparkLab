@@ -74,9 +74,9 @@ Default locale: en_US, platform encoding: UTF-8
 OS name: "linux", version: "5.4.0-26-generic", arch: "amd64", family: "unix"
 ```
 
-### Configure JAVA_HOME
+### Configure M2_HOME
 
-To create JAVA_HOME environment variable, open `/etc/environment` file:
+To create M2_HOME environment variable, open `/etc/environment` file:
 
 ```
 sudo nano /etc/environment
