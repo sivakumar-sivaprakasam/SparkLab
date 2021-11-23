@@ -130,12 +130,6 @@ Launch terminal and run following command
 sudo snap install intellij-idea-community --classic
 ```
 
-To install Chrome browser, run following command
-
-```
-sudo apt install ./google-chrome-stable_current_amd64.deb
-```
-
 ### Download & Install Google Chrome Browser
 
 Launch terminal and run following command
