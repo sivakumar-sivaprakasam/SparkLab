@@ -449,7 +449,7 @@ Open terminal and cd to SPARK_INSTALLATION_FOLDER/bin and type the below command
 
 ### Exercise 11 - Word count using Spark Streaming 
 
-It is simple word count example using Socket streaming source. On the `scala>` prompt, run the following commands:
+It is a simple word count example using Socket as streaming source. On the `scala>` prompt, run the following commands:
 
 ```
 val streamDF = spark.readStream.format("socket").option("host", "localhost").option("port", "1234").load();
@@ -461,33 +461,36 @@ val count = wordDF.groupBy("word").count();
 val query = count.writeStream.format("console").outputMode("complete").start().awaitTermination();
 ```
 
-You've noticed, the above code wont produce any output yet. The above code listen to port `localhost:1234`. As soon as message starts flowing, it will perform aggregation and show the output in console stream.
+You've noticed, the above code doesn't produce any output. The above code listen to port `localhost:1234`. As soon as message starts flowing from the Socket (host/port), it will perform aggregation of data and show the output in console.
 
 We're going to make use of Linux's `Netcat` utility to produce messages. Launch another terminal window and run following commands:
 
 ```
 nc -l -p 1234
+
 Hello World
 Hello Singapore
 ```
 
-As soon as you start to produce data in streaming data source at localhost:1234, on the spark-shell, you could see the results printing on the console stream. 
+As soon as you start producing data in streaming data source at localhost:1234, on the spark-shell, you could see the results gets printed on the console window. 
 
 ## Spark Streaming Lab exercises using Java
 
-Clone this project `https://github.com/sskumar77/SparkLab.git` for the below exercises
+Clone this project `https://github.com/sskumar77/SparkLab.git` for the below 2 exercises
 
 ### Exercise 12 - Word count example using JavaStreamingContext
 
-A simple word count exercise implemented using Java. This program listens to socket stream at localhost:1234. As soon as data start to flow in, it will perform aggregation and produces the results in console output.
+A simple word count exercise implemented using Java. This program listens to socket stream at localhost:1234. As soon as data start to flow in, it will perform aggregation and produces the results in console.
+
+Use same `Netcat` utility as seen in previous exercise to input stream data
 
 Partially implemented solution can be found at  `com.spark.lab.spark_exercises.streaming.partial.WordCountExample`
 
 Full solution can be found at `com.spark.lab.spark_exercises.streaming.solution.WordCountExample`
 
-### Exercise 13 - Structured data streaming
+### Exercise 13 - Structured data streaming using Spark SQL
 
-In this exercise, we're going to listen to a directory where SG Air Temp datasets keep getting dropped every 5 seconds. Stream Processor listen to this directory and performs aggregation with newly existing & newly generated data by weather stations (key: station_id) and show the results in console output.
+In this exercise, we're going to listen to a directory where SG Air Temp public datasets (we'll use API to extract near real-time datasets) keep getting dropped every 5 seconds. Stream Processor listen to this directory and performs aggregation with old & newly generated data by weather stations (key: station_id) and display the results in console output.
 
 SG Air Temp data producer program is kept at `com.spark.lab.spark_exercises.streaming.SGAirTempDataProducer`
 
