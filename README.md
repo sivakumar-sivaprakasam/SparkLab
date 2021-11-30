@@ -148,7 +148,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Launch Spark-Shell
 
-Open terminal and cd to SPARK_FOLDER/bin and type the below command
+Open terminal and cd to SPARK_INSTALLATION_FOLDER/bin and type the below command
 
 ```
 ./spark-shell
@@ -441,7 +441,7 @@ Full solution can be found at `com.spark.lab.spark_exercises.ds.solution.DSExamp
 
 ### Launch Spark-Shell
 
-Open terminal and cd to SPARK_FOLDER/bin and type the below command
+Open terminal and cd to SPARK_INSTALLATION_FOLDER/bin and type the below command
 
 ```
 ./spark-shell
