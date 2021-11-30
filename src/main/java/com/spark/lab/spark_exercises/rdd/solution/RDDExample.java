@@ -37,7 +37,7 @@ public class RDDExample {
 		
 		// Reading the input file
 		// This reads with default partition
-		JavaRDD<String> inputRDD = sc.textFile(input_file, 10);
+		JavaRDD<String> inputRDD = sc.textFile(input_file);
 		
 		// Repartition the RDD
 		inputRDD = inputRDD.repartition(5);
@@ -62,7 +62,7 @@ public class RDDExample {
 		resultedRDD.filter(x -> x._1().equals("10")).foreach(x -> System.out.println(x._1() + " --> " + x._2()));
 
 		// To improve performance, we're going to persist the RDD
-		resultedRDD.persist(StorageLevel.MEMORY_AND_DISK());
+		resultedRDD = resultedRDD.persist(StorageLevel.MEMORY_AND_DISK());
 		
 		// Filter RDD where key = 10 or 20 & print its key and total count
 		resultedRDD.filter(x -> x._1().equals("10") || x._1().equals("20"))

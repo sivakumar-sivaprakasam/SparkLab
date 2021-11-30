@@ -37,7 +37,7 @@ public class RDDExample {
 
 		// Reading the input file
 		// This reads with default partition
-		JavaRDD<String> inputRDD = sc.textFile(input_file, 10);
+		JavaRDD<String> inputRDD = sc.textFile(input_file);
 		
 		// TODO: Try to repartition the RDD
 		

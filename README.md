@@ -148,7 +148,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Launch Spark-Shell
 
-Open terminal and cd to <SPARK FOLDER>/bin and type the below command
+Open terminal and cd to SPARK_FOLDER/bin and type the below command
 
 ```
 ./spark-shell
@@ -225,7 +225,7 @@ scala>
 
 Let's apply some basic transformation on an RDD. In the below example, we're just multiplying each element by 2 and then calling action `foreach` on it.
 
-Remember RDD transformations are lazy (i.e., execution takes place only when an Action is called on it). You can check the browser to see effect
+Remember RDD transformations are lazy (i.e., execution takes place only when an Action is called on it). You can check in the browser to see effect
 
 ```
 scala> var r2 = r.map(x => x * 2)
@@ -374,9 +374,9 @@ only showing top 5 rows
 We're going to perform the same example done on exercise 6 but using CSV API
 
 ```
-val orderDF = spark.read.option("header", "false").option("inferSchema", "true").option("delimiter", ",").csv("/home/siva/data/orders.txt").filter("_c3='COMPLETE'").selectExpr("_c0 as order_id", "_c1 as order_date")
+val orderDF = spark.read.option("header", "false").option("inferSchema", "true").option("delimiter", ",").csv("/home/ubuntu/data/orders.txt").filter("_c3='COMPLETE'").selectExpr("_c0 as order_id", "_c1 as order_date")
 
-val orderItemsDF = spark.read.option("header", "false").option("inferSchema", "true").option("delimiter", ",").csv("/home/siva/data/order_items.txt").selectExpr("_c1 as order_id", "_c4 as order_total")
+val orderItemsDF = spark.read.option("header", "false").option("inferSchema", "true").option("delimiter", ",").csv("/home/ubuntu/data/order_items.txt").selectExpr("_c1 as order_id", "_c4 as order_total")
 
 orderDF.createOrReplaceTempView("orders")
 
@@ -407,7 +407,7 @@ only showing top 5 rows
 
 ## Spark Lab exercises using Java
 
-Clone this project for the below 2 exercises
+Clone this project `https://github.com/sskumar77/SparkLab.git` for the below 2 exercises
 
 ### Exercise 9 - Spark RDD
 
@@ -416,6 +416,10 @@ In this example, we'll be loading ~2GB unstructured file which contains random a
 Data file to be used is `/home/ubuntu/data/sample.data` and it is already kept in there
 
 Finally, filtering out selected numbers and also save the output of RDD to folder `/home/ubuntu/data/sample.data/out`
+
+Partially implemented solution can be found at  `com.spark.lab.spark_exercises.rdd.partial.RDDExample`
+
+Full solution can be found at `com.spark.lab.spark_exercises.rdd.solution.RDDExample`
 
 ### Exercise 10 - Spark DataSet
 
@@ -428,3 +432,69 @@ We're going to perform following analysis
 1. Get total number of Flats per Town (grouped by Flat Type)
 2. Get list of Towns where the flats are built on or after 2000
 3. Get top 10 resale flats (resale price $)
+
+Partially implemented solution can be found at  `com.spark.lab.spark_exercises.ds.partial.DSExample`
+
+Full solution can be found at `com.spark.lab.spark_exercises.ds.solution.DSExample`
+
+## Spark Streaming Lab exercises using Spark Shell (Scala)
+
+### Launch Spark-Shell
+
+Open terminal and cd to SPARK_FOLDER/bin and type the below command
+
+```
+./spark-shell
+```
+
+### Exercise 11 - Word count using Spark Streaming 
+
+It is simple word count example using Socket streaming source. On the `scala>` prompt, run the following commands:
+
+```
+val streamDF = spark.readStream.format("socket").option("host", "localhost").option("port", "1234").load();
+
+val wordDF = streamDF.select(explode(split(streamDF("value"), " ")).alias("word"));
+
+val count = wordDF.groupBy("word").count();
+
+val query = count.writeStream.format("console").outputMode("complete").start().awaitTermination();
+```
+
+You've noticed, the above code wont produce any output yet. The above code listen to port `localhost:1234`. As soon as message starts flowing, it will perform aggregation and show the output in console stream.
+
+We're going to make use of Linux's `Netcat` utility to produce messages. Launch another terminal window and run following commands:
+
+```
+nc -l -p 1234
+Hello World
+Hello Singapore
+```
+
+As soon as you start to produce data in streaming data source at localhost:1234, on the spark-shell, you could see the results printing on the console stream. 
+
+## Spark Streaming Lab exercises using Java
+
+Clone this project `https://github.com/sskumar77/SparkLab.git` for the below exercises
+
+### Exercise 12 - Word count example using JavaStreamingContext
+
+A simple word count exercise implemented using Java. This program listens to socket stream at localhost:1234. As soon as data start to flow in, it will perform aggregation and produces the results in console output.
+
+Partially implemented solution can be found at  `com.spark.lab.spark_exercises.streaming.partial.WordCountExample`
+
+Full solution can be found at `com.spark.lab.spark_exercises.streaming.solution.WordCountExample`
+
+### Exercise 13 - Structured data streaming
+
+In this exercise, we're going to listen to a directory where SG Air Temp datasets keep getting dropped every 5 seconds. Stream Processor listen to this directory and performs aggregation with newly existing & newly generated data by weather stations (key: station_id) and show the results in console output.
+
+SG Air Temp data producer program is kept at `com.spark.lab.spark_exercises.streaming.SGAirTempDataProducer`
+
+For this stream data processor to run, you need to pass data folder as an argument.
+
+Partially implemented solution can be found at  `com.spark.lab.spark_exercises.streaming.partial.SGAirTempDataProcessor`
+
+Full solution can be found at `com.spark.lab.spark_exercises.streaming.solution.SGAirTempDataProcessor`
+
+
