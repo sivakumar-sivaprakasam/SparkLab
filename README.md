@@ -548,7 +548,7 @@ cd /home/ubuntu/spark/bin
 ./spark-submit --class com.spark.lab.spark_exercises.rdd.solution.RDDExample --master <spark_master_url> --deploy-mode cluster --supervise <project_target_folder>/spark-lab-jar-with-dependencies.jar <input_data_file> <output_folder>
 ```
 
-As soon as you see the message `Driver successfully submitted as &lt;driver id&gt;`, you can launch browser and access spark-cluster to see the progress of your payload submitted to Spark Cluster
+As soon as you see the message `Driver successfully submitted as <driver_id>`, you can launch browser and access spark-cluster to see the progress of your payload submitted to Spark Cluster
 
 #### Submitting other exercises on Spark Cluster
 
