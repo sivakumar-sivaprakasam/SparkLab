@@ -604,18 +604,20 @@ You should see `Kafka` as one of a java process
 
 #### Create Kafka topics
 
-For the below lab exercises (14 & 15), we need to create Kafka topics to send/receive data to/from spark. Launch terminal window and run following commands
+For the below lab exercises (15 & 16), we need to create Kafka topics to send/receive data to/from spark. Launch terminal window and run following commands
 
 ```
 cd /home/ubuntu/kafka/bin
 
 ./kafka-topics --bootstrap-server localhost:9092 --create --topic word_count --partitions 1 --replication-factor 1
 
+./kafka-topics --bootstrap-server localhost:9092 --create --topic sg_temp --partitions 1 --replication-factor 1
+
 ```
 
 ### Spark Integration with Kafka Lab Exercise (Using Java)
 
-#### Exercise 14 - Word count example
+#### Exercise 15 - Word count example (Spark as Kafka Data Consumer)
 
 A simple word count exercise implemented using Java. This program listens to Kafka topic `word_count`. As soon as data start to flow in, it will perform aggregation and produces the results in console.
 
@@ -639,6 +641,19 @@ To submit this application on Spark cluster, please use following commands
 cd /home/ubuntu/spark/bin
 
 ./spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.0 --class com.spark.lab.spark_exercises.kafka.SparkKafkaConsumer --master <spark_master_url> --deploy-mode cluster --supervise <full_path_of_project_target_folder>/spark-lab-jar-with-dependencies.jar
+```
+
+#### Exercise 16 - SG Air Temp Data Analyser (Spark as Kafka Data Producer)
+
+Based on the experience got from exercise 15, can you please come up with your own solution to push aggregated results (solution for Exercise 13), to kafka topic `sg_temp`?
+
+To consume data in Kafka, we can use console consumer CLI, launch terminal window & run following command. As soon as the data start to be produced by Spark, you will start to see messages on the console
+
+```
+cd /home/ubuntu/kafka/bin
+
+./kafka-console-consumer --bootstrap-server localhost:9092 --topic sg_temp
+
 ```
 
 
