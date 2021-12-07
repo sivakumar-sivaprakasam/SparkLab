@@ -514,7 +514,9 @@ nohup ./start-master.sh &
 
 The above command will start Spark Master. You can access Spark Master by launching browser and go to `http://localhost:8080/`
 
-Once Spark Master is started, we can now attach worker(s) to Spark Master. In this lab, we've single master/worker setup. But in your applicative environment, you may have many worker nodes to form Spark cluster. On your worker nodes, download & install Spark and run following commands.
+Once Spark Master is started, we can now attach worker(s) to Spark Master. In this lab, we've single master/worker setup. But in your applicative environment, you may have many worker nodes to form Spark cluster. 
+
+*** Remember you must install Spark on all your worker nodes. ***
 
 Launch terminal and run following commands. You can get Spark Master URL from `http://localhost:8080` (note down URL showing on top of the page). Normally it starts with `spark://{host name}:{port number}`
 
@@ -524,9 +526,9 @@ cd /home/ubuntu/spark/sbin
 nohup ./start-worker.sh {spark master URL} &
 ```
 
-You can repeat the above step on all your worker nodes. To validate all worker nodes are joined to your cluster, access Spark Master and check `Workers` tab
+You can repeat the above step on all your worker nodes. To confirm if all worker nodes are joined to your cluster, access Spark Master and check `Workers` section
 
-## Submitting java application to Spark Cluster
+## Submitting Java application to Spark Cluster
 
 Clone this project `https://github.com/sskumar77/SparkLab.git` for the below exercises
 
@@ -536,14 +538,14 @@ Let us build SparkLab application. Launch Eclipse IDE, either import or git clon
 
 Once maven build is successful, it will create Uber jar in your project's target folder.
 
-##### Submitting the application to Spark using spark-submit CLI
+##### Submitting application to Spark Cluster using spark-submit CLI
 
 Launch terminal window, `cd` to your project's target folder and then run following command to launch word count program to spark cluster
 
 ```
 cd /home/ubuntu/spark/bin
 
-./spark-submit --class com.spark.lab.spark_exercises.rdd.solution.RDDExample --master &lt;spark master url&gt; --deploy-mode cluster --supervise &lt;project's target folder&gt;/spark-lab-jar-with-dependencies.jar &lt;input data file&gt; &lt;output folder&gt;
+./spark-submit --class com.spark.lab.spark_exercises.rdd.solution.RDDExample --master <spark_master_url> --deploy-mode cluster --supervise <project_target_folder>/spark-lab-jar-with-dependencies.jar <input_data_file> <output_folder>
 ```
 
 As soon as you see the message `Driver successfully submitted as &lt;driver id&gt;`, you can launch browser and access spark-cluster to see the progress of your payload submitted to Spark Cluster
@@ -629,14 +631,14 @@ cd /home/ubuntu/kafka/bin
 
 ```
 
-Full solution can be found at `com.spark.lab.spark_exercises.streaming.solution.WordCountKafkaConsumer`
+Full solution can be found at `com.spark.lab.spark_exercises.kafka.SparkKafkaConsumer`
 
 To submit this application on Spark cluster, please use following commands
 
 ```
 cd /home/ubuntu/spark/bin
 
-./spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.0 --class com.spark.lab.spark_exercises.kafka.SparkKafkaConsumer --master &lt;spark master url&lt; --deploy-mode cluster --supervise &lt;full path of project's target folder&gt;spark-lab-jar-with-dependencies.jar
+./spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.0 --class com.spark.lab.spark_exercises.kafka.SparkKafkaConsumer --master <spark_master_url> --deploy-mode cluster --supervise <full_path_of_project_target_folder>/spark-lab-jar-with-dependencies.jar
 ```
 
 
