@@ -500,4 +500,149 @@ Partially implemented solution can be found at  `com.spark.lab.spark_exercises.s
 
 Full solution can be found at `com.spark.lab.spark_exercises.streaming.solution.SGAirTempDataProcessor`
 
+## Spark Cluster Setup
+
+In order to setup Spark cluster, we are going to use Spark's CLI. We first need to setup Spark Master & then followed by worker(s)
+
+Launch terminal and run following commands
+
+```
+cd /home/ubuntu/spark/sbin
+
+nohup ./start-master.sh &
+```
+
+The above command will start Spark Master. You can access Spark Master by launching browser and go to `http://localhost:8080/`
+
+Once Spark Master is started, we can now attach worker(s) to Spark Master. In this lab, we've single master/worker setup. But in your applicative environment, you may have many worker nodes to form Spark cluster. On your worker nodes, download & install Spark and run following commands.
+
+Launch terminal and run following commands. You can get Spark Master URL from `http://localhost:8080` (note down URL showing on top of the page). Normally it starts with `spark://{host name}:{port number}`
+
+```
+cd /home/ubuntu/spark/sbin
+
+nohup ./start-worker.sh {spark master URL} &
+```
+
+You can repeat the above step on all your worker nodes. To validate all worker nodes are joined to your cluster, access Spark Master and check `Workers` tab
+
+## Submitting java application to Spark Cluster
+
+Clone this project `https://github.com/sskumar77/SparkLab.git` for the below exercises
+
+#### Exercise 14 - Word count (RDD) example
+
+Let us build SparkLab application. Launch Eclipse IDE, either import or git clone `https://github.com/sskumar77/SparkLab.git`. And then, right-click your project, `Run > Maven Install`
+
+Once maven build is successful, it will create Uber jar in your project's target folder.
+
+##### Submitting the application to Spark using spark-submit CLI
+
+Launch terminal window, `cd` to your project's target folder and then run following command to launch word count program to spark cluster
+
+```
+cd /home/ubuntu/spark/bin
+
+./spark-submit --class com.spark.lab.spark_exercises.rdd.solution.RDDExample --master &lt;spark master url&gt; --deploy-mode cluster --supervise &lt;project's target folder&gt;/spark-lab-jar-with-dependencies.jar &lt;input data file&gt; &lt;output folder&gt;
+```
+
+As soon as you see the message `Driver successfully submitted as &lt;driver id&gt;`, you can launch browser and access spark-cluster to see the progress of your payload submitted to Spark Cluster
+
+#### Submitting other exercises on Spark Cluster
+
+Based on the above steps, please try to submit other solutions we had seen before on Spark Cluster and see the execution
+
+## Spark Integration with Kafka
+
+### Download & Install Confluent Kafka
+
+Download Confluent Kafka (community edition) version 6.2.1 (http://packages.confluent.io/archive/6.2/confluent-community-6.2.0.tar.gz)
+
+Launch terminal and run following commands to download & install Confluent Kafka
+
+```
+mkdir -p /home/ubuntu/kafka && cd /home/ubuntu/kafka
+curl "http://packages.confluent.io/archive/6.2/confluent-community-6.2.0.tar.gz" -o kafka.tar.gz
+tar -xvzf kafka.tar.gz  --strip 1
+```
+
+#### Start Zookeeper
+
+To start Zookeeper, launch new terminal & run following commands
+
+```
+cd /home/ubuntu/kafka/bin
+nohup ./zookeeper-server-start ../etc/kafka/zookeeper.properties &
+```
+
+To verify Zookeeper started properly, launch new terminal & run following command
+
+```
+jps
+```
+
+You should see `QuorumPeerMain` as one of a java process
+
+#### Start Kafka Broker
+
+To start Kafka broker, launch new terminal and run following commands
+
+```
+cd /home/ubuntu/kafka/bin
+nohup ./kafka-server-start ../etc/kafka/server.properties &
+```
+
+To verify Kafka broker started properly, launch new terminal & run following command
+
+```
+jps
+```
+
+You should see `Kafka` as one of a java process
+
+#### Create Kafka topics
+
+For the below lab exercises (14 & 15), we need to create Kafka topics to send/receive data to/from spark. Launch terminal window and run following commands
+
+```
+cd /home/ubuntu/kafka/bin
+
+./kafka-topics --bootstrap-server localhost:9092 --create --topic word_count --partitions 1 --replication-factor 1
+
+```
+
+### Spark Integration with Kafka Lab Exercise (Using Java)
+
+#### Exercise 14 - Word count example
+
+A simple word count exercise implemented using Java. This program listens to Kafka topic `word_count`. As soon as data start to flow in, it will perform aggregation and produces the results in console.
+
+To use Kafka console producer to produce data, launch terminal window & run following command. Once you see the prompt sign `>`, start to type messages
+
+```
+cd /home/ubuntu/kafka/bin
+
+./kafka-console-producer --bootstrap-server localhost:9092 --topic word_count
+
+> Hello World
+> Hello Singapore
+
+```
+
+Full solution can be found at `com.spark.lab.spark_exercises.streaming.solution.WordCountKafkaConsumer`
+
+To submit this application on Spark cluster, please use following commands
+
+```
+cd /home/ubuntu/spark/bin
+
+./spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.0 --class com.spark.lab.spark_exercises.kafka.SparkKafkaConsumer --master &lt;spark master url&lt; --deploy-mode cluster --supervise &lt;full path of project's target folder&gt;spark-lab-jar-with-dependencies.jar
+```
+
+
+
+
+
+
+
 

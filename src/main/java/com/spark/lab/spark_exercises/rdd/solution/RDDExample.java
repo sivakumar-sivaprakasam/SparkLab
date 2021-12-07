@@ -1,9 +1,12 @@
 package com.spark.lab.spark_exercises.rdd.solution;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
@@ -16,12 +19,17 @@ import scala.Tuple2;
 public class RDDExample {
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
-			throw new IllegalArgumentException();
+		if (args.length != 2) {
+			throw new IllegalArgumentException("Expected 2 arguments. 1) Input data file 2) Folder to store the output file");
 		}
 		String input_file = args[0];
-		String output_file = input_file + "/out";
+		String output_file = args[1];
 		try {
+		    Files.walk(Paths.get(output_file))
+		      .sorted(Comparator.reverseOrder())
+		      .map(Path::toFile)
+		      .forEach(File::delete);
+		    
 			Files.deleteIfExists(Paths.get(output_file));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -70,6 +78,8 @@ public class RDDExample {
 		
 		// Save result in a file
 		resultedRDD.saveAsTextFile(output_file);
+		
+		
 
 		sc.stop();
 		sc.close();

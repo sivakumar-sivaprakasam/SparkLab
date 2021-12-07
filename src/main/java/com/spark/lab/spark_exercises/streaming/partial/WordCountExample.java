@@ -5,11 +5,8 @@ import java.util.Arrays;
 import org.apache.spark.SparkConf;
 import org.apache.spark.streaming.Durations;
 import org.apache.spark.streaming.api.java.JavaDStream;
-import org.apache.spark.streaming.api.java.JavaPairDStream;
 import org.apache.spark.streaming.api.java.JavaReceiverInputDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
-
-import scala.Tuple2;
 
 public class WordCountExample {
 	private static final int PORT = 1234;
