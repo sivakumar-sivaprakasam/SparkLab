@@ -656,6 +656,7 @@ cd /home/ubuntu/kafka/bin
 
 ```
 
+Once your solution is ready, submit it to Spark cluster
 
 
 
