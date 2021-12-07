@@ -645,7 +645,7 @@ cd /home/ubuntu/spark/bin
 
 #### Exercise 16 - SG Air Temp Data Analyser (Spark as Kafka Data Producer)
 
-Based on the experience got from exercise 15, can you please come up with your own solution to push aggregated results (solution for Exercise 13), to kafka topic `sg_temp`?
+Based on the experience got from exercise 15, can you please come up with your own solution to push aggregated results (refer solution from Exercise 13), to kafka topic `sg_temp`?
 
 To consume data in Kafka, we can use console consumer CLI, launch terminal window & run following command. As soon as the data start to be produced by Spark, you will start to see messages on the console
 
