@@ -643,9 +643,15 @@ cd /home/ubuntu/spark/bin
 ./spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.2.0 --class com.spark.lab.spark_exercises.kafka.SparkKafkaConsumer --master <spark_master_url> --deploy-mode cluster --supervise <full_path_of_project_target_folder>/spark-lab-jar-with-dependencies.jar
 ```
 
+To verify the results, we'll be accessing Spark Cluster at `http://localhost:8080` access the running driver application and check `stdout` log.
+
 #### Exercise 16 - SG Air Temp Data Analyser (Spark as Kafka Data Producer)
 
 Based on the experience got from exercise 15, can you please come up with your own solution to push aggregated results (refer solution from Exercise 13), to kafka topic `sg_temp`?
+
+Once your solution is ready, submit it to Spark cluster. 
+
+To verify the results, we'll be using Kafka console consumer CLI.
 
 To consume data in Kafka, we can use console consumer CLI, launch terminal window & run following command. As soon as the data start to be produced by Spark, you will start to see messages on the console
 
@@ -655,9 +661,6 @@ cd /home/ubuntu/kafka/bin
 ./kafka-console-consumer --bootstrap-server localhost:9092 --topic sg_temp
 
 ```
-
-Once your solution is ready, submit it to Spark cluster
-
 
 
 
